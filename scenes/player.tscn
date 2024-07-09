@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://c50tdp6nvfcbo"]
+
+[ext_resource type="Script" path="res://scripts/game/player.gd" id="1_xknlj"]
+[ext_resource type="Script" path="res://scripts/components/ScaleComponent.gd" id="2_kbmsy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y2ue8"]
+size = Vector2(40, 40)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7xyvh"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("sprite:scale")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("sprite/ColorRect:color")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_xknlj")
+
+[node name="sprite" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="sprite"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0.513726, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_y2ue8")
+
+[node name="JumpScale" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_kbmsy")
+sprite = NodePath("../sprite")
+scale_amount = Vector2(0.8, 1.2)
+scale_duration = 0.2
+
+[node name="LandScale" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_kbmsy")
+sprite = NodePath("../sprite")
+scale_amount = Vector2(1, 0.8)
+scale_duration = 0.2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7xyvh")

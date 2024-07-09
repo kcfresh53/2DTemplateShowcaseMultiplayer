@@ -1,0 +1,9 @@
+Node2D
+MultiplayerSynchronizer
+CollisionShape2D
+StaticBody2D
+ColorRect
+ScaleComponent
+CharacterBody2D
+WebSocketNetProtocol
+MultiPlayCore
